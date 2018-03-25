@@ -10,6 +10,9 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         super(MainWindows, self).__init__(parent)
         self.setupUi(self)
 
+    def EnregistrerClick(self):
+        self.label.setText("test")
+
 app=QApplication(sys.argv)
 form=MainWindows()
 form.show()

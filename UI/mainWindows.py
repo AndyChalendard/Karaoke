@@ -26,19 +26,21 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(400, 300)
-        self.buttonBox = QtGui.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(30, 240, 341, 32))
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
+        self.Button_Enregistrer = QtGui.QPushButton(Dialog)
+        self.Button_Enregistrer.setGeometry(QtCore.QRect(50, 60, 99, 27))
+        self.Button_Enregistrer.setObjectName(_fromUtf8("Button_Enregistrer"))
+        self.label = QtGui.QLabel(Dialog)
+        self.label.setGeometry(QtCore.QRect(80, 180, 68, 17))
+        self.label.setObjectName(_fromUtf8("label"))
 
         self.retranslateUi(Dialog)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), Dialog.reject)
+        QtCore.QObject.connect(self.Button_Enregistrer, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.EnregistrerClick)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
+        self.Button_Enregistrer.setText(_translate("Dialog", "Enregistrer", None))
+        self.label.setText(_translate("Dialog", "TextLabel", None))
 
 
 if __name__ == "__main__":
