@@ -4,8 +4,10 @@ import sys
 from PyQt4.QtGui import *
 
 sys.path.insert(0, './UI')
+sys.path.insert(0, './Audio')
 
 import mainWindows
+import Audio
 
 class MainWindows(QDialog, mainWindows.Ui_Dialog):
     def __init__(self, parent=None):
@@ -25,7 +27,7 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         if (file_dialog.exec_()):
             #Définition de la variable global contenant le fichier à lire
             global AudioFile
-            AudioFile = file_dialog.selectedFiles().first()
+            AudioFile = str(file_dialog.selectedFiles().first())
 
     # Ecouter la musique à lire
     def ecouterClick(self):
@@ -36,7 +38,7 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
         # on écoute ensuite le fichier
         if (AudioFile != None):
-            print("ecouter")
+            Audio.lecturefichier(AudioFile)
 
     # On veut jouer sur la musique actuelle
     def jouerClick(self):
