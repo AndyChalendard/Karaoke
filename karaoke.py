@@ -16,17 +16,29 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         file_dialog = QFileDialog(self)
         file_dialog.setNameFilters(["Fichier audio (*.wav)"])
         file_dialog.selectNameFilter("Fichier audio (*.wav)")
-        file_dialog.exec_()
+        if (file_dialog.exec_()):
+            global AudioFile
+            AudioFile = file_dialog.selectedFiles().first()
 
     def ecouterClick(self):
-        print("ecouter")
+        if (AudioFile == None):
+            self.fileSearchClick()
+
+        if (AudioFile != None):
+            print("ecouter")
 
     def jouerClick(self):
-        print("jouer")
+        if (AudioFile == None):
+            self.fileSearchClick()
+
+        if (AudioFile != None):
+            print("jouer")
 
 if __name__ == "__main__":
     app=QApplication(sys.argv)
     form=MainWindows()
     form.show()
+
+    AudioFile = None;
 
     app.exec_()
