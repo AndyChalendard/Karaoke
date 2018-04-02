@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sys
 from PyQt4.QtGui import *
 
@@ -11,16 +13,20 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         self.setupUi(self)
 
     def fileSearchClick(self):
-        print("file...")
+        filename = QFileDialog.getOpenFileName(w, 'Open File', '/')
+        print filename
 
     def ecouterClick(self):
         print("ecouter")
 
     def jouerClick(self):
         print("jouer")
-        
+
 if __name__ == "__main__":
     app=QApplication(sys.argv)
     form=MainWindows()
     form.show()
+
+    w=QWidget()
+
     app.exec_()
