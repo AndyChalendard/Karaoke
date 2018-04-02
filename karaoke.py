@@ -10,8 +10,14 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         super(MainWindows, self).__init__(parent)
         self.setupUi(self)
 
-    def EnregistrerClick(self):
-        self.label.setText("test")
+    def fileSearchClick(self):
+        print("file...")
+
+    def ecouterClick(self):
+        print("ecouter")
+
+    def jouerClick(self):
+        print("jouer")
 
 app=QApplication(sys.argv)
 form=MainWindows()

@@ -2,64 +2,146 @@
 <ui version="4.0">
  <class>Dialog</class>
  <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>360</width>
+    <height>365</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Karaoké</string>
   </property>
-  <widget class="QPushButton" name="Button_Enregistrer">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>60</y>
-     <width>99</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Enregistrer</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>180</y>
-     <width>68</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QTextBrowser" name="textBrowser">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>75</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>75</height>
+        </size>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Bienvenue&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGraphicsView" name="graphicsView"/>
+     </item>
+     <item>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="value">
+        <number>24</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="Button_File">
+         <property name="text">
+          <string>File...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Button_Listen">
+         <property name="text">
+          <string>Ecouter</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Button_Play">
+         <property name="text">
+          <string>Jouer</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
+ <tabstops>
+  <tabstop>textBrowser</tabstop>
+  <tabstop>graphicsView</tabstop>
+  <tabstop>Button_File</tabstop>
+  <tabstop>Button_Listen</tabstop>
+  <tabstop>Button_Play</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>Button_Enregistrer</sender>
+   <sender>Button_Listen</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>EnregistrerClick()</slot>
+   <slot>ecouterClick()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>127</x>
-     <y>78</y>
+     <x>152</x>
+     <y>343</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>119</y>
+     <x>157</x>
+     <y>360</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Button_File</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>fileSearchClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>340</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>25</x>
+     <y>356</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Button_Play</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>jouerClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>262</x>
+     <y>349</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>270</x>
+     <y>361</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>EnregistrerClick()</slot>
+  <slot>ecouterClick()</slot>
+  <slot>fileSearchClick()</slot>
+  <slot>jouerClick()</slot>
  </slots>
 </ui>
