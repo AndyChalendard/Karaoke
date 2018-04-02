@@ -13,8 +13,10 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         self.setupUi(self)
 
     def fileSearchClick(self):
-        filename = QFileDialog.getOpenFileName(w, 'Open File', '/')
-        print filename
+        file_dialog = QFileDialog(self)
+        file_dialog.setNameFilters(["Fichier audio (*.wav)"])
+        file_dialog.selectNameFilter("Fichier audio (*.wav)")
+        file_dialog.exec_()
 
     def ecouterClick(self):
         print("ecouter")
@@ -26,7 +28,5 @@ if __name__ == "__main__":
     app=QApplication(sys.argv)
     form=MainWindows()
     form.show()
-
-    w=QWidget()
 
     app.exec_()
