@@ -2,6 +2,7 @@
 
 import sys
 from PyQt4.QtGui import *
+from PyQt4.QtCore import *
 
 sys.path.insert(0, './UI')
 sys.path.insert(0, './Audio')
@@ -10,14 +11,21 @@ import mainWindows
 import Audio
 
 class MainWindows(QDialog, mainWindows.Ui_Dialog):
+
+    progressChanged = pyqtSignal(int)
+
     def __init__(self, parent=None):
         super(MainWindows, self).__init__(parent)
         self.setupUi(self)
         self.progressBar.setValue(0)
+        self.progressChanged.connect(self.progressBar.setValue)
 
     def textBrowserSetText(self):
         global audioFile
         self.textBrowser.setText("Fichier selectionne: "+ str(audioFile));
+
+    def setProgressBar(self, value):
+        self.progressChanged.emit(value)
 
     #Rechercher un nouveau fichier audio
     def fileSearchClick(self):
@@ -58,17 +66,17 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
 # si ce fichier correpond au fichier d'exécution python
 if __name__ == "__main__":
-    # on initialise la lecture audio
-    lectureAudio = Audio.LectureAudio();
-
     # on définit notre fenetre
     app=QApplication(sys.argv)
     form=MainWindows()
     form.show()
 
+    # on initialise la lecture audio
+    lectureAudio = Audio.LectureAudio(form.setProgressBar);
+
     # on définit le fichier audio
     audioFile = None;
-    form.textBrowser.setText("Bienvenue sur Karaoke !\n Aucun fichier audio a ete selectionne !");
+    form.textBrowser.setText("Bienvenue sur Karaoke !\nAucun fichier audio a ete selectionne !");
 
     # on exécute l'application
     app.exec_()

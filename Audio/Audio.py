@@ -9,12 +9,17 @@ import time
 class LectureAudio():
     pyAudio = None
 
+    setProgress = None
+
     lecFichier = None
     stream = None
 
+    frameCounter = 0;
+
     # initialisation de la classe de lecture
-    def __init__(self):
+    def __init__(self, setProgress):
         self.pyAudio=pyaudio.PyAudio()
+        self.setProgress = setProgress
 
     # retourne l'état de lecture
     def playing(self):
@@ -22,10 +27,17 @@ class LectureAudio():
 
     def callback(self, in_data, frame_count, time_info, status):
         data = self.lecFichier.readframes(frame_count)
+        self.frameCounter+=frame_count
+
+        if self.setProgress != None:
+            self.setProgress(self.frameCounter*100/self.lecFichier.getnframes())
+
         return (data, pyaudio.paContinue)
 
     # lit un fichier wav
     def lectureFichier(self, fichieralire):
+        self.frameCounter = 0
+        self.progress = 0
         self.lectureStop()
 
         self.lecFichier=wave.open(fichieralire,'rb')      #on l ouvre en lecture seule
