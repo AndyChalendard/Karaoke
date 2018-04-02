@@ -11,6 +11,7 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
     def __init__(self, parent=None):
         super(MainWindows, self).__init__(parent)
         self.setupUi(self)
+        self.progressBar.setValue(0)
 
     def fileSearchClick(self):
         file_dialog = QFileDialog(self)
