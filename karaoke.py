@@ -18,8 +18,9 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
     def jouerClick(self):
         print("jouer")
-
-app=QApplication(sys.argv)
-form=MainWindows()
-form.show()
-app.exec_()
+        
+if __name__ == "__main__":
+    app=QApplication(sys.argv)
+    form=MainWindows()
+    form.show()
+    app.exec_()
