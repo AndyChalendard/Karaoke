@@ -1,41 +1,61 @@
+# -*- coding: utf-8 -*-
+
 import pyaudio
 import wave
 import time
 
 
 #phase 1: lecture d un fichier
-def lecturefichier(fichieralire) :
-   
-    lecfichier=wave.open(fichieralire,'r')      #on l ouvre en lecture seule
-    p=pyaudio.PyAudio()         #necessaire pr le fonctionnement
-    
-    
-    def callback(in_data, frame_count, time_info, status):
-        data = wf.readframes(frame_count)
+class LectureAudio():
+    pyAudio = None
+
+    lecFichier = None
+    stream = None
+
+    # initialisation de la classe de lecture
+    def __init__(self):
+        self.pyAudio=pyaudio.PyAudio()
+
+    # retourne l'état de lecture
+    def playing(self):
+        return self.stream != None
+
+    def callback(self, in_data, frame_count, time_info, status):
+        data = self.lecFichier.readframes(frame_count)
         return (data, pyaudio.paContinue)
-    
-    stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
-                output=True,
-                stream_callback=callback)            #cree le flux desire
-                
 
-    stream.start_stream()       
-    
-    while stream.is_active():
-        time.sleep(0.1)
+    # lit un fichier wav
+    def lectureFichier(self, fichieralire):
+        self.lectureStop()
+
+        self.lecFichier=wave.open(fichieralire,'rb')      #on l ouvre en lecture seule
+
+        self.stream = self.pyAudio.open(format=self.pyAudio.get_format_from_width(self.lecFichier.getsampwidth()),
+                    channels=self.lecFichier.getnchannels(),
+                    rate=self.lecFichier.getframerate(),
+                    output=True,
+                    stream_callback=self.callback)            #cree le flux desire
+
+        #self.stream.start_stream()
+
+    # arrete la lecture
+    def lectureStop(self):
+        if self.playing() == True:
+            self.stream.stop_stream()                #arret du stream
+            self.stream.close()
+            self.lecFichier.close()
+
+            self.lecFichier = None
+            self.stream = None
+
+    # libère la lecture audio
+    def close(self):
+        if self.playing() == True:
+            self.lectureStop()
+
+        self.pyAudio.terminate()
+        self.pyAudio = None
 
 
-    stream.stop_stream()                #arret du stream
-    stream.close()
-    lecfichier.close()
 
-    p.terminate()           #fermeture de l outil pyaudio
-    
-    
-    
-    
 #phase 2: enregistrer un fichier audio grace a un micro
-
-

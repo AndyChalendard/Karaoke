@@ -43,7 +43,7 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
         # on écoute ensuite le fichier
         if (audioFile != None):
-            Audio.lecturefichier(audioFile)
+            lectureAudio.lectureFichier(audioFile)
 
     # On veut jouer sur la musique actuelle
     def jouerClick(self):
@@ -58,6 +58,9 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
 # si ce fichier correpond au fichier d'exécution python
 if __name__ == "__main__":
+    # on initialise la lecture audio
+    lectureAudio = Audio.LectureAudio();
+
     # on définit notre fenetre
     app=QApplication(sys.argv)
     form=MainWindows()
@@ -69,3 +72,9 @@ if __name__ == "__main__":
 
     # on exécute l'application
     app.exec_()
+
+    # fermeture de l'application
+    print("Fermeture de Karaoke")
+
+    # on libère la lecture audio
+    lectureAudio.close()
