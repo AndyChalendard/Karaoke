@@ -22,7 +22,7 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
     def textBrowserSetText(self):
         global audioFile
-        self.textBrowser.setText("Fichier selectionne: "+ str(audioFile));
+        self.textBrowser.setText("Fichier selectionne: "+ str(audioFile))
 
     def setProgressBar(self, value):
         self.progressChanged.emit(value)
@@ -56,13 +56,18 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
     # On veut jouer sur la musique actuelle
     def jouerClick(self):
         # si aucun fichier n'à été définit
-        if (audioFile == None):
+        #if (audioFile == None):
             # on ouvre la boite de dialogue demandant le fichier
-            self.fileSearchClick()
+        #    self.fileSearchClick()
 
         # on joue sur le fichier
-        if (audioFile != None):
-            print("jouer")
+        #if (audioFile != None):
+        if enregistrementAudio.recording() == False:
+            enregistrementAudio.enregistrementFichier("/home/andy/test.wav")
+            print("enregi..")
+        else:
+            enregistrementAudio.enregistrementStop()
+            print("enregistrer")
 
 # si ce fichier correpond au fichier d'exécution python
 if __name__ == "__main__":
@@ -72,11 +77,14 @@ if __name__ == "__main__":
     form.show()
 
     # on initialise la lecture audio
-    lectureAudio = Audio.LectureAudio(form.setProgressBar);
+    lectureAudio = Audio.LectureAudio(form.setProgressBar)
+
+    # on initialise l'Enregistrement audio
+    enregistrementAudio = Audio.EnregistrementAudio()
 
     # on définit le fichier audio
     audioFile = None;
-    form.textBrowser.setText("Bienvenue sur Karaoke !\nAucun fichier audio a ete selectionne !");
+    form.textBrowser.setText("Bienvenue sur Karaoke !\nAucun fichier audio a ete selectionne !")
 
     # on exécute l'application
     app.exec_()
@@ -86,3 +94,6 @@ if __name__ == "__main__":
 
     # on libère la lecture audio
     lectureAudio.close()
+
+    # on libère l'enregistrement audio
+    enregistrementAudio.close()

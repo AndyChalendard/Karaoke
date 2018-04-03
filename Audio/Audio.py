@@ -71,40 +71,61 @@ class LectureAudio():
 
 
 #phase 2: enregistrer un fichier audio grace a un micro
-def enregistrer(nomfichier,tempsEnregistrement=10):            #choisir un tempsenregistrement avant de lancer le logiciel
 
-    p = pyaudio.PyAudio()
-    RECORD_SECONDS=tempsEnregistrement
+class EnregistrementAudio():
+    pyAudio = None
+
+    stream = None
+
+    output = None
+    frames = None
+
     CHUNK = 1024
     RATE = 44100        #nombre de frames par seconde , on trouve 44100 ou 8000 ...
-    FORMAT = pyaudio.paInt16
+    FORMAT = None
     CHANNELS = 2
-    WAVE_OUTPUT_FILENAME = nomfichier           #fichier de sortie
 
-    stream = p.open(format=FORMAT, channels=CHANNELS,       #debut de l enregistrement
-                    rate=RATE, input=True,                  # pour avoir le micro
-                    frames_per_buffer=CHUNK)
+    def __init__(self):
+        self.pyAudio = pyaudio.PyAudio()
+        self.FORMAT = pyaudio.paInt16
 
-    print("debut recup donnees")
+    # retourne l'état de l'enregistrement
+    def recording(self):
+        return self.stream != None
 
-    frames = []
+    def callback(self, in_data, frame_count, time_info, status):
+        self.frames.append(in_data)
+        return (in_data, pyaudio.paContinue)
 
-    for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):          #record par pacquets de 1024b=128o ?
-        data = stream.read(CHUNK)           #frame/sec * sec / chunk
-        frames.append(data)
+    def enregistrementFichier(self, nomfichier):
+        self.enregistrementStop()
 
-    print("fin recup donnees")
+        self.output = nomfichier           #fichier de sortie
+        self.frames = []
 
-    stream.stop_stream()                            #fermeture du stream
-    stream.close()
-    p.terminate()
+        self.stream = self.pyAudio.open(format=self.FORMAT, channels=self.CHANNELS,       #debut de l enregistrement
+                        rate=self.RATE, input=True,                  # pour avoir le micro
+                        frames_per_buffer=self.CHUNK,
+                        stream_callback=self.callback)
 
-    fichierEcriture = wave.open(nomfichier, 'wb')              #enregistrement dans le fichier
-    fichierEcriture.setnchannels(CHANNELS)
-    fichierEcriture.setsampwidth(audio.get_sample_size(FORMAT))         #calcule la taille d'un echantillon
-    fichierEcriture.setframerate(RATE)
-    fichierEcriture.writeframes(b''.join(frames))
-    fichierEcriture.close()
-    #chaque frame sur 2 channels (chaque channel sur 2 octet)
-    #une donnee du tableau receuilli est sur 4*chunk=4096bits
-    #pour que ca marche correctement il faut verifier les parametres du micro.
+    def enregistrementStop(self):
+        if self.recording():
+            self.stream.stop_stream()                            #fermeture du stream
+            self.stream.close()
+            self.stream = None
+
+            fichierEcriture = wave.open(self.output, 'wb')              #enregistrement dans le fichier
+            fichierEcriture.setnchannels(self.CHANNELS)
+            fichierEcriture.setsampwidth(pyaudio.get_sample_size(self.FORMAT))         #calcule la taille d'un echantillon
+            fichierEcriture.setframerate(self.RATE)
+            fichierEcriture.writeframes(b''.join(self.frames))
+            fichierEcriture.close()
+            #chaque frame sur 2 channels (chaque channel sur 2 octet)
+            #une donnee du tableau receuilli est sur 4*chunk=4096bits
+            #pour que ca marche correctement il faut verifier les parametres du micro.
+
+    def close(self):
+        if self.recording():
+            self.enregistrementStop()
+        self.pyAudio.terminate()
+        self.pyAudio = None
