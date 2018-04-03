@@ -38,14 +38,13 @@ def lecturefichier(fichieralire) :
     
 #phase 2: enregistrer un fichier audio grace a un micro
 
-
 def enregistrer(nomfichier,tempsEnregistrement=10):            #choisir un tempsenregistrement avant de lancer le logiciel
     
     p = pyaudio.PyAudio()   
     RECORD_SECONDS=tempsEnregistrement
     CHUNK = 1024
-    RATE = 44100        #nombre de frames par seconde , pk 44100?
-    FORMAT = pyaudio.paInt16            #?
+    RATE = 44100        #nombre de frames par seconde , on trouve 44100 ou 8000 ...
+    FORMAT = pyaudio.paInt16            
     CHANNELS = 2                    
     WAVE_OUTPUT_FILENAME = nomfichier           #fichier de sortie
     
@@ -58,7 +57,7 @@ def enregistrer(nomfichier,tempsEnregistrement=10):            #choisir un temps
     frames = []
 
     for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):          #record par pacquets de 1024b=128o ?
-        data = stream.read(CHUNK)
+        data = stream.read(CHUNK)           #frame/sec * sec / chunk  
         frames.append(data)
 
     print("fin recup donnees")     
@@ -75,3 +74,4 @@ def enregistrer(nomfichier,tempsEnregistrement=10):            #choisir un temps
     fichierEcriture.close() 
     #chaque frame sur 2 channels (chaque channel sur 2 octet)
     #une donnee du tableau receuilli est sur 4*chunk=4096bits
+    #pour que ca marche correctement il faut verifier les parametres du micro.
