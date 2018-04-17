@@ -81,9 +81,9 @@ class EnregistrementAudio():
     frames = None
 
     CHUNK = 1024
-    RATE = 44100        #nombre de frames par seconde , on trouve 44100 ou 8000 ...
+    RATE = 8000        #nombre de frames par seconde , on trouve 44100 ou 8000 ...
     FORMAT = None
-    CHANNELS = 2
+    CHANNELS = 1
 
     def __init__(self):
         self.pyAudio = pyaudio.PyAudio()
