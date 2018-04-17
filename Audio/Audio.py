@@ -3,7 +3,7 @@
 import pyaudio
 import wave
 import time
-
+import numpy
 
 #phase 1: lecture d un fichier
 class LectureAudio():
@@ -79,6 +79,7 @@ class EnregistrementAudio():
 
     output = None
     frames = None
+    framesFloat = None
 
     CHUNK = 1024
     RATE = 8000        #nombre de frames par seconde , on trouve 44100 ou 8000 ...
@@ -95,6 +96,7 @@ class EnregistrementAudio():
 
     def callback(self, in_data, frame_count, time_info, status):
         self.frames.append(in_data)
+        self.framesInt.extend(numpy.fromstring(in_data, numpy.int16).tolist())
         return (in_data, pyaudio.paContinue)
 
     def enregistrementFichier(self, nomfichier):
@@ -102,6 +104,7 @@ class EnregistrementAudio():
 
         self.output = nomfichier           #fichier de sortie
         self.frames = []
+        self.framesInt = []
 
         self.stream = self.pyAudio.open(format=self.FORMAT, channels=self.CHANNELS,       #debut de l enregistrement
                         rate=self.RATE, input=True,                  # pour avoir le micro
@@ -120,6 +123,12 @@ class EnregistrementAudio():
             fichierEcriture.setframerate(self.RATE)
             fichierEcriture.writeframes(b''.join(self.frames))
             fichierEcriture.close()
+
+            import matplotlib.pyplot as plt
+            #print(self.framesInt)
+            plt.plot(self.framesInt)
+            plt.grid(True)
+            plt.show()
             #chaque frame sur 2 channels (chaque channel sur 2 octet)
             #une donnee du tableau receuilli est sur 4*chunk=4096bits
             #pour que ca marche correctement il faut verifier les parametres du micro.
