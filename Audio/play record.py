@@ -6,9 +6,9 @@ def lecturerecord(frames) :
     
     play=pyaudio.PyAudio()
     CHUNK = 1024
-    RATE = 44100
+    RATE = 8000
     FORMAT = pyaudio.paInt16            
-    CHANNELS = 2
+    CHANNELS = 1
     
     stream_play=play.open(format=FORMAT,
                       channels=CHANNELS,
