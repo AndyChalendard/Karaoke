@@ -54,6 +54,9 @@ class Ui_Dialog(object):
         self.Button_Play = QtGui.QPushButton(Dialog)
         self.Button_Play.setObjectName(_fromUtf8("Button_Play"))
         self.horizontalLayout.addWidget(self.Button_Play)
+        self.Button_Parametre = QtGui.QPushButton(Dialog)
+        self.Button_Parametre.setObjectName(_fromUtf8("Button_Parametre"))
+        self.horizontalLayout.addWidget(self.Button_Parametre)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
@@ -61,6 +64,7 @@ class Ui_Dialog(object):
         QtCore.QObject.connect(self.Button_Listen, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.ecouterClick)
         QtCore.QObject.connect(self.Button_File, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.fileSearchClick)
         QtCore.QObject.connect(self.Button_Play, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.jouerClick)
+        QtCore.QObject.connect(self.Button_Parametre, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.parametreClick)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
         Dialog.setTabOrder(self.textBrowser, self.graphicsView)
         Dialog.setTabOrder(self.graphicsView, self.Button_File)
@@ -77,6 +81,7 @@ class Ui_Dialog(object):
         self.Button_File.setText(_translate("Dialog", "File...", None))
         self.Button_Listen.setText(_translate("Dialog", "Ecouter", None))
         self.Button_Play.setText(_translate("Dialog", "Jouer", None))
+        self.Button_Parametre.setText(_translate("Dialog", "Paramètre", None))
 
 
 if __name__ == "__main__":
@@ -87,4 +92,3 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
-

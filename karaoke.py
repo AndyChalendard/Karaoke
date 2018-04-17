@@ -8,6 +8,7 @@ sys.path.insert(0, './UI')
 sys.path.insert(0, './Audio')
 
 import mainWindows
+import param
 import Audio
 
 class MainWindows(QDialog, mainWindows.Ui_Dialog):
@@ -53,6 +54,9 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         if (audioFile != None):
             lectureAudio.lectureFichier(audioFile)
 
+    def parametreClick(self):
+        formParam.show()
+
     # On veut jouer sur la musique actuelle
     def jouerClick(self):
         # si aucun fichier n'à été définit
@@ -69,12 +73,38 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
             enregistrementAudio.enregistrementStop()
             print("enregistrer")
 
+class ParamWindows(QDialog, param.Ui_Dialog):
+
+    def __init__(self, parent=None):
+        super(ParamWindows, self).__init__(parent)
+        self.setupUi(self)
+
+    def SetChunk(self, value):
+        print(value)
+
+    def SetRate(self, value):
+        print(value)
+
+    def SetChannel(self, value):
+        print(value)
+
+    def CheminDEnregistrementClick(self):
+        print("test1")
+
+    def CloseClick(self):
+        formParam.hide()
+
+    def EnregistrerClick(self):
+        print("test3")
+
 # si ce fichier correpond au fichier d'exécution python
 if __name__ == "__main__":
     # on définit notre fenetre
     app=QApplication(sys.argv)
     form=MainWindows()
     form.show()
+
+    formParam=ParamWindows()
 
     # on initialise la lecture audio
     lectureAudio = Audio.LectureAudio(form.setProgressBar)

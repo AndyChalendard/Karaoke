@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
+    <width>386</width>
     <height>365</height>
    </rect>
   </property>
@@ -72,6 +72,13 @@ p, li { white-space: pre-wrap; }
         <widget class="QPushButton" name="Button_Play">
          <property name="text">
           <string>Jouer</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Button_Parametre">
+         <property name="text">
+          <string>Paramètre</string>
          </property>
         </widget>
        </item>
@@ -138,10 +145,27 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>Button_Parametre</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>parametreClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>346</x>
+     <y>327</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>192</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ecouterClick()</slot>
   <slot>fileSearchClick()</slot>
   <slot>jouerClick()</slot>
+  <slot>parametreClick()</slot>
  </slots>
 </ui>
