@@ -19,6 +19,7 @@ class config():
         print("test")
 
     def close(self):
+        self.close()
         print("close")
 
     def setValue(self, name, value):    #attribution d une valeur à une clé
@@ -31,6 +32,13 @@ class config():
         print("return value")
         return valeur
 
+    def dataOnFile():
+        fichier=open("data.txt", "a")
+        for obj in dico.items():
+            fichier.write("'{0}':'{1}'".format(key,value))      # on ecrit clé:valeur pour chaque couple
+        fichier.close()
+        
+            
 
 # si ce fichier correpond au fichier d'exécution python
 if __name__ == "__main__":
