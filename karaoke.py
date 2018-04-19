@@ -11,6 +11,8 @@ import mainWindows
 import param
 import Audio
 
+import configuration
+
 class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
     progressChanged = pyqtSignal(int)
@@ -67,7 +69,7 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         # on joue sur le fichier
         #if (audioFile != None):
         if enregistrementAudio.recording() == False:
-            enregistrementAudio.enregistrementFichier("/home/andy/test.wav")
+            enregistrementAudio.enregistrementFichier(config.getValue("path_saved")+"/Karaoke_Save.wav")
             print("enregi..")
         else:
             enregistrementAudio.enregistrementStop()
@@ -80,16 +82,19 @@ class ParamWindows(QDialog, param.Ui_Dialog):
         self.setupUi(self)
 
     def SetChunk(self, value):
-        print(value)
+        config.setValue("chunk", value)
 
     def SetRate(self, value):
-        print(value)
+        config.setValue("rate", value)
 
     def SetChannel(self, value):
-        print(value)
+        config.setValue("channel", value)
 
     def CheminDEnregistrementClick(self):
-        print("test1")
+        value = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+
+        if (value != ""):
+            config.setValue("path_saved", value)
 
     def CloseClick(self):
         formParam.hide()
@@ -99,6 +104,9 @@ class ParamWindows(QDialog, param.Ui_Dialog):
 
 # si ce fichier correpond au fichier d'exécution python
 if __name__ == "__main__":
+    #on initialise la config
+    config = configuration.config()
+
     # on définit notre fenetre
     app=QApplication(sys.argv)
     form=MainWindows()
@@ -110,7 +118,7 @@ if __name__ == "__main__":
     lectureAudio = Audio.LectureAudio(form.setProgressBar)
 
     # on initialise l'Enregistrement audio
-    enregistrementAudio = Audio.EnregistrementAudio()
+    enregistrementAudio = Audio.EnregistrementAudio(config.getValue("chunk"), config.getValue("rate"), config.getValue("channel"))
 
     # on définit le fichier audio
     audioFile = None;
@@ -127,3 +135,6 @@ if __name__ == "__main__":
 
     # on libère l'enregistrement audio
     enregistrementAudio.close()
+
+    # on libère la configuration
+    config.close()
