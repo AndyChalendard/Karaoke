@@ -1,19 +1,10 @@
 # -*- coding: utf-8 -*-
 
 #travaux en cours
-
-#ce qui est derriere les # sont des tests
-def creerDictionnaire():
-    #dictionnaire={}        
-    #valeurs par defaut : 
-    dico={'chunk' : 1024 , 'rate' : 8000 , 'channels' : 1}
-    print (dico)
-    #print (dico['chunk'])             # affichage d un element
-    return dico
     
-def affichageDico(dictionnaire):
-    for key,value in dictionnaire.items():
-        print ("'{0}' : '{1}'".format(key,value))
+    #valeurs par defaut : dico={'chunk' : 1024 , 'rate' : 8000 , 'channels' : 1}
+    #print (dico['chunk'])             # affichage d un element
+    
     
 def dataOnFile(dictionnaire):           #ecrit dans un fichier les elements du dictionnaire,pas l'air de marcher
     fichier=open("data.txt", "a")
@@ -24,6 +15,12 @@ def dataOnFile(dictionnaire):           #ecrit dans un fichier les elements du d
 
 class config():
     
+    dico={}
+    
+    def affichageDico(self, dictionnaire):
+        for key,value in dictionnaire.items():
+            print ("{0} : Type('{1}') : {1}".format(key,value))
+        
     dico=creerDictionnaire()
 
     def __init__(self):
@@ -39,10 +36,12 @@ class config():
         print("set")
         #print(self.dico[name])
 
-    def getValue(self, name):               #recuperation d une valeur d une clé dans le dictionnaire
+    def getValue(self, name, default):               #recuperation d une valeur d une clé dans le dio, sinon val. par defaut
         valeur=self.dico.get(name)
+        if (valeur==None):
+            valeur=default 
         print("return value")
-        #print(valeur)
+        print(valeur)
         return valeur
 
 
@@ -55,8 +54,10 @@ if __name__ == "__main__":
     
     class5=config()
     print (class5.dico)
-    class5.getValue('chunk')
+    class5.getValue('chunk',1024)
     class5.setValue('chunk',1023)
     print(class5.dico)
     dataOnFile(class5.dico)
-    class5.close()
+    class5.getValue('boby',12)
+    class5.getValue('chunk',1024)
+    class5.affichageDico(class5.dico)
