@@ -69,7 +69,8 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         # on joue sur le fichier
         #if (audioFile != None):
         if enregistrementAudio.recording() == False:
-            enregistrementAudio.enregistrementFichier(config.getValue("path_saved")+"/Karaoke_Save.wav")
+            if (config.getValue("path_saved") != None):
+                enregistrementAudio.enregistrementFichier(config.getValue("path_saved")+"/Karaoke_Save.wav")
             print("enregi..")
         else:
             enregistrementAudio.enregistrementStop()
@@ -118,7 +119,7 @@ if __name__ == "__main__":
     lectureAudio = Audio.LectureAudio(form.setProgressBar)
 
     # on initialise l'Enregistrement audio
-    enregistrementAudio = Audio.EnregistrementAudio(config.getValue("chunk"), config.getValue("rate"), config.getValue("channel"))
+    enregistrementAudio = Audio.EnregistrementAudio(config.getValue("chunk", 1024), config.getValue("rate", 8000), config.getValue("channel", 1))
 
     # on définit le fichier audio
     audioFile = None;
