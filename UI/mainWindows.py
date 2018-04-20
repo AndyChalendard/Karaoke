@@ -26,7 +26,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.setWindowModality(QtCore.Qt.NonModal)
-        Dialog.resize(360, 365)
+        Dialog.resize(386, 365)
         self.verticalLayout_2 = QtGui.QVBoxLayout(Dialog)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.verticalLayout = QtGui.QVBoxLayout()
@@ -36,7 +36,7 @@ class Ui_Dialog(object):
         self.textBrowser.setMaximumSize(QtCore.QSize(16777215, 75))
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
         self.verticalLayout.addWidget(self.textBrowser)
-        self.graphicsView = QtGui.QGraphicsView(Dialog)
+        self.graphicsView = PlotWidget(Dialog)
         self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
         self.verticalLayout.addWidget(self.graphicsView)
         self.progressBar = QtGui.QProgressBar(Dialog)
@@ -83,6 +83,7 @@ class Ui_Dialog(object):
         self.Button_Play.setText(_translate("Dialog", "Jouer", None))
         self.Button_Parametre.setText(_translate("Dialog", "Paramètre", None))
 
+from pyqtgraph import PlotWidget
 
 if __name__ == "__main__":
     import sys
@@ -92,3 +93,4 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
+

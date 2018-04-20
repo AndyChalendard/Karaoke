@@ -43,7 +43,7 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="QGraphicsView" name="graphicsView"/>
+      <widget class="PlotWidget" name="graphicsView"/>
      </item>
      <item>
       <widget class="QProgressBar" name="progressBar">
@@ -88,6 +88,13 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraph</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>textBrowser</tabstop>
   <tabstop>graphicsView</tabstop>
