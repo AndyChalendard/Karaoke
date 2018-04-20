@@ -5,12 +5,6 @@
     #valeurs par defaut : dico={'chunk' : 1024 , 'rate' : 8000 , 'channels' : 1}
     #print (dico['chunk'])             # affichage d un element
     
-    
-def dataOnFile(dictionnaire):           #ecrit dans un fichier les elements du dictionnaire,pas l'air de marcher
-    fichier=open("data.txt", "a")
-    for key,value in dictionnaire.items():
-        fichier.write("'{0}':'{1}'".format(key,value))      # on ecrit clé:valeur pour chaque couple
-    fichier.close()
 
 
 class config():
@@ -19,16 +13,16 @@ class config():
     
     def affichageDico(self, dictionnaire):
         for key,value in dictionnaire.items():
-            print ("{0} : Type('{1}') : {1}".format(key,value))
+            print ("{0} : Type('{1}') : {1} \n".format(key,value))
         
-    dico=creerDictionnaire()
-
     def __init__(self):
         print("test")
 
-    def close(self):
-        #dataOnFile(self.dico)
-        self.close()
+    def close(self):                #on ecrit les valeurs dans un fichier
+        fichier=open("param.conf", "w")
+        for key,value in dictionnaire.items():
+            fichier.write("{0} : {1} \n".format(key,value))      # on ecrit clé:valeur pour chaque couple
+        fichier.close()
         print("close")
 
     def setValue(self, name, value):    #attribution d une valeur à une clé
@@ -44,9 +38,6 @@ class config():
         print(valeur)
         return valeur
 
-
-        
-            
 
 # si ce fichier correpond au fichier d'exécution python
 if __name__ == "__main__":
