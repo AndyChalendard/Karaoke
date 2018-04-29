@@ -97,12 +97,6 @@ class ParamWindows(QDialog, param.Ui_Dialog):
         if (value != ""):
             config.setValue("path_saved", value)
 
-    def CloseClick(self):
-        formParam.hide()
-
-    def EnregistrerClick(self):
-        print("test3")
-
 # si ce fichier correpond au fichier d'exécution python
 if __name__ == "__main__":
     #on initialise la config

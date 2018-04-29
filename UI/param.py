@@ -75,21 +75,10 @@ class Ui_Dialog(object):
         self.Button_Path = QtGui.QPushButton(Dialog)
         self.Button_Path.setObjectName(_fromUtf8("Button_Path"))
         self.verticalLayout.addWidget(self.Button_Path)
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.Button_Close = QtGui.QPushButton(Dialog)
-        self.Button_Close.setObjectName(_fromUtf8("Button_Close"))
-        self.horizontalLayout.addWidget(self.Button_Close)
-        self.Button_Enregistrer = QtGui.QPushButton(Dialog)
-        self.Button_Enregistrer.setObjectName(_fromUtf8("Button_Enregistrer"))
-        self.horizontalLayout.addWidget(self.Button_Enregistrer)
-        self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.Button_Path, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.CheminDEnregistrementClick)
-        QtCore.QObject.connect(self.Button_Close, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.CloseClick)
-        QtCore.QObject.connect(self.Button_Enregistrer, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.EnregistrerClick)
         QtCore.QObject.connect(self.spinBox_3, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), Dialog.SetChannel)
         QtCore.QObject.connect(self.spinBox_2, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), Dialog.SetRate)
         QtCore.QObject.connect(self.spinBox, QtCore.SIGNAL(_fromUtf8("valueChanged(int)")), Dialog.SetChunk)
@@ -101,8 +90,6 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Fréquence d\'échantillonnage", None))
         self.label_3.setText(_translate("Dialog", "Canaux", None))
         self.Button_Path.setText(_translate("Dialog", "Chemin d\'enregistrement", None))
-        self.Button_Close.setText(_translate("Dialog", "Close", None))
-        self.Button_Enregistrer.setText(_translate("Dialog", "Enregistrer", None))
 
 
 if __name__ == "__main__":

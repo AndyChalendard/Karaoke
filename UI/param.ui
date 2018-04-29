@@ -114,31 +114,10 @@
        </property>
       </widget>
      </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="Button_Close">
-         <property name="text">
-          <string>Close</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Button_Enregistrer">
-         <property name="text">
-          <string>Enregistrer</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
     </layout>
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>Button_Close</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -154,38 +133,6 @@
     <hint type="destinationlabel">
      <x>32</x>
      <y>70</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Button_Close</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>CloseClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>38</x>
-     <y>151</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>77</x>
-     <y>146</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Button_Enregistrer</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>EnregistrerClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>434</x>
-     <y>177</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>253</x>
-     <y>156</y>
     </hint>
    </hints>
   </connection>
