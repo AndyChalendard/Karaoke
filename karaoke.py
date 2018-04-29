@@ -174,7 +174,7 @@ if __name__ == "__main__":
     form.show()
 
     #on définit la fenetre de paramètre
-    formParam=ParamWindows()
+    formParam=ParamWindows(form)
 
     # on initialise la lecture audio
     lectureAudio = Audio.LectureAudio(form.setProgressBar)
