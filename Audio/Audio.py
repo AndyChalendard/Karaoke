@@ -134,11 +134,11 @@ class EnregistrementAudio():
             fichierEcriture.writeframes(b''.join(self.frames))
             fichierEcriture.close()
 
-            import matplotlib.pyplot as plt
+            #import matplotlib.pyplot as plt
             #print(self.framesInt)
-            plt.plot(self.framesInt)
-            plt.grid(True)
-            plt.show()
+            #plt.plot(self.framesInt)
+            #plt.grid(True)
+            #plt.show()
             #chaque frame sur 2 channels (chaque channel sur 2 octet)
             #une donnee du tableau receuilli est sur 4*chunk=4096bits
             #pour que ca marche correctement il faut verifier les parametres du micro.
