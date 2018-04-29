@@ -43,7 +43,12 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="PlotWidget" name="graphicsView"/>
+      <widget class="QDockWidget" name="dockWidget">
+       <property name="features">
+        <set>QDockWidget::NoDockWidgetFeatures</set>
+       </property>
+       <widget class="QWidget" name="dockWidgetContents"/>
+      </widget>
      </item>
      <item>
       <widget class="QProgressBar" name="progressBar">
@@ -88,16 +93,8 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>PlotWidget</class>
-   <extends>QGraphicsView</extends>
-   <header>pyqtgraph</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>textBrowser</tabstop>
-  <tabstop>graphicsView</tabstop>
   <tabstop>Button_File</tabstop>
   <tabstop>Button_Listen</tabstop>
   <tabstop>Button_Play</tabstop>

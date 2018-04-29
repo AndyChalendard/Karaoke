@@ -36,9 +36,13 @@ class Ui_Dialog(object):
         self.textBrowser.setMaximumSize(QtCore.QSize(16777215, 75))
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
         self.verticalLayout.addWidget(self.textBrowser)
-        self.graphicsView = PlotWidget(Dialog)
-        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
-        self.verticalLayout.addWidget(self.graphicsView)
+        self.dockWidget = QtGui.QDockWidget(Dialog)
+        self.dockWidget.setFeatures(QtGui.QDockWidget.NoDockWidgetFeatures)
+        self.dockWidget.setObjectName(_fromUtf8("dockWidget"))
+        self.dockWidgetContents = QtGui.QWidget()
+        self.dockWidgetContents.setObjectName(_fromUtf8("dockWidgetContents"))
+        self.dockWidget.setWidget(self.dockWidgetContents)
+        self.verticalLayout.addWidget(self.dockWidget)
         self.progressBar = QtGui.QProgressBar(Dialog)
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName(_fromUtf8("progressBar"))
@@ -66,8 +70,7 @@ class Ui_Dialog(object):
         QtCore.QObject.connect(self.Button_Play, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.jouerClick)
         QtCore.QObject.connect(self.Button_Parametre, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.parametreClick)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-        Dialog.setTabOrder(self.textBrowser, self.graphicsView)
-        Dialog.setTabOrder(self.graphicsView, self.Button_File)
+        Dialog.setTabOrder(self.textBrowser, self.Button_File)
         Dialog.setTabOrder(self.Button_File, self.Button_Listen)
         Dialog.setTabOrder(self.Button_Listen, self.Button_Play)
 
@@ -83,7 +86,6 @@ class Ui_Dialog(object):
         self.Button_Play.setText(_translate("Dialog", "Jouer", None))
         self.Button_Parametre.setText(_translate("Dialog", "Paramètre", None))
 
-from pyqtgraph import PlotWidget
 
 if __name__ == "__main__":
     import sys

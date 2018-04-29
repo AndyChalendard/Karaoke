@@ -20,11 +20,12 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
     progressChanged = pyqtSignal(int)
 
-    def __init__(self, parent=None):
+    def __init__(self, widgetFFT, parent=None):
         super(MainWindows, self).__init__(parent)
         self.setupUi(self)
         self.progressBar.setValue(0)
         self.progressChanged.connect(self.progressBar.setValue)
+        self.dockWidget.setWidget(widgetFFT)
 
     def textBrowserSetText(self):
         global audioFile
@@ -138,8 +139,6 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
 
         self.read_collected.connect(self.update)
 
-        self.show()
-
     def update(self, data):
         # normalized, windowed frequencies in data chunk
 
@@ -163,20 +162,25 @@ if __name__ == "__main__":
     #on initialise la config
     config = configuration.config()
 
+    #Initialisation de l'app PyQt
+    app=QApplication([])
+
+    #on définit le widget FFT
+    widgetFFT = SpectrogramWidget(config.getValue("chunk", 1024), config.getValue("rate", 8000))
+    widgetFFT.show()
+
     # on définit notre fenetre
-    app=QApplication(sys.argv)
-    form=MainWindows()
+    form=MainWindows(widgetFFT)
     form.show()
 
+    #on définit la fenetre de paramètre
     formParam=ParamWindows()
-
-    w = SpectrogramWidget(config.getValue("chunk", 1024), config.getValue("rate", 8000))
 
     # on initialise la lecture audio
     lectureAudio = Audio.LectureAudio(form.setProgressBar)
 
     # on initialise l'Enregistrement audio
-    enregistrementAudio = Audio.EnregistrementAudio(config.getValue("chunk", 1024), config.getValue("rate", 8000), config.getValue("channel", 1), w.read_collected)
+    enregistrementAudio = Audio.EnregistrementAudio(config.getValue("chunk", 1024), config.getValue("rate", 8000), config.getValue("channel", 1), widgetFFT.read_collected)
 
     # on définit le fichier audio
     audioFile = None;
