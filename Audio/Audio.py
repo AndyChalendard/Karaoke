@@ -79,19 +79,21 @@ class EnregistrementAudio():
 
     output = None
     frames = None
-    framesFloat = None
+    framesInt = None
+    signal = None
 
     CHUNK = None
     RATE = None        #nombre de frames par seconde , on trouve 44100 ou 8000 ...
     FORMAT = None
     CHANNELS = None
 
-    def __init__(self, chunk = 1024, rate = 8000, channels = 1):
+    def __init__(self, chunk = 1024, rate = 8000, channels = 1, signal = None):
         self.pyAudio = pyaudio.PyAudio()
         self.FORMAT = pyaudio.paInt16
         self.CHUNK = chunk
         self.RATE = rate
         self.CHANNELS = channels
+        self.signal = signal
 
     # retourne l'état de l'enregistrement
     def recording(self):
@@ -99,7 +101,12 @@ class EnregistrementAudio():
 
     def callback(self, in_data, frame_count, time_info, status):
         self.frames.append(in_data)
-        self.framesInt.extend(numpy.fromstring(in_data, numpy.int16).tolist())
+        NpFrameInt = numpy.fromstring(in_data, numpy.int16)
+        self.framesInt.extend(NpFrameInt.tolist())
+
+        if (self.signal != None):
+            self.signal.emit(NpFrameInt)
+
         return (in_data, pyaudio.paContinue)
 
     def enregistrementFichier(self, nomfichier):
