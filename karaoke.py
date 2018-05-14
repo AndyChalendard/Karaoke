@@ -11,8 +11,8 @@ import mainWindows
 import param
 import Audio
 
-#import spectrogramme
-import fftGraph
+import spectrogramme
+#import fftGraph
 
 import configuration
 
@@ -112,8 +112,8 @@ if __name__ == "__main__":
     app=QApplication([])
 
     #on définit le widget FFT
-    #widgetFFT = spectrogramme.SpectrogramWidget(config.getValue("chunk", 1024), config.getValue("rate", 8000))
-    widgetFFT = fftGraph.widgetFFT(config.getValue("chunk", 1024), config.getValue("rate", 8000))
+    widgetFFT = spectrogramme.SpectrogramWidget(config.getValue("chunk", 1024), config.getValue("rate", 8000))
+    #widgetFFT = fftGraph.widgetFFT(config.getValue("chunk", 1024), config.getValue("rate", 8000))
 
     # on définit notre fenetre
     form=MainWindows(widgetFFT)

@@ -31,7 +31,7 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
         self.img.setLookupTable(lut)
         self.img.setLevels([-50,40])
 
-        freq = numpy.arange((chunk/2)+1)/(float(chunk)/rate)
+        freq = numpy.arange((chunk/2)+1) / (float(chunk)/rate)
         yscale = 1.0/(self.img_array.shape[1]/freq[-1])
         self.img.scale((1./rate)*chunk, yscale)
 
@@ -43,17 +43,18 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
 
     def update(self, data):
         # normalized, windowed frequencies in data chunk
-
         spec = numpy.fft.rfft(data*self.win) / self.chunk
+
         # get magnitude
-
         psd = abs(spec)
-        # convert to dB scale
 
+        # convert to dB scale
         psd = 20 * numpy.log10(psd)
 
-        # roll down one and replace leading edge with new data
+        #définition du seuil de détection
+        psd = numpy.where(psd<20, 0, -20)
 
+        # roll down one and replace leading edge with new data
         self.img_array = numpy.roll(self.img_array, -1, 0)
         self.img_array[-1:] = psd
 
