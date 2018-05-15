@@ -26,7 +26,7 @@ class config():
 
     def __init__(self):
         print("initialisation, lecture des valeurs du fichier")
-        fichier0=open("C:/Users/pasca/Desktop/testpourprojet/test.txt","r")
+        fichier0=open("param.conf","r")
        # print("testboucle")
         ligne=fichier0.readline()
         for i in range(3):                        #tq on est pas en fin de fichier , a la limite compter le nb de lignes
@@ -52,7 +52,7 @@ class config():
 
 
     def close(self):                #on écrit les valeurs dans un fichier
-        fichier=open("C:/Users/pasca/Desktop/testpourprojet/test.txt", "w")
+        fichier=open("param.conf", "w")
         for key,value in self.dico.items():
             valtype=type(value)
             value_type=str(valtype)
