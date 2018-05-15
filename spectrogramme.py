@@ -3,6 +3,7 @@
 from PyQt4.QtCore import *
 import pyqtgraph
 import numpy
+import spectrogrammeBlock
 
 class SpectrogramWidget(pyqtgraph.PlotWidget):
 
@@ -48,6 +49,9 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
 
         # on définit le signal pyqt
         self.read_collected.connect(self.update)
+
+        #on définit les blocks
+        self.blocks = spectrogrammeBlock.SpectrogramBlock("block.data", chunk, rate);
 
     def update(self, data):
         # normalized, windowed frequencies in data chunk
