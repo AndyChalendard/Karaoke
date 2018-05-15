@@ -4,6 +4,9 @@
     #dico={'chunk' : 1024 , 'rate' : 8000 , 'channels' : 1}
     #print (dico['chunk'])             # affichage d un element
 
+#On suppose qu'on a en entree un fichier avec des valeurs par defaut dedans (j ai supposé 3 constantes pour l instant) (ligne32)
+#je suppose egalemnt que le type d un objet est representé sur 3 caracteres ( int , str....)  (ligne 38)
+#j ai supposé enfin , qu on avait que deux types : str, int (lignes 44)
 
 class config():
 
@@ -22,11 +25,34 @@ class config():
             
 
     def __init__(self):
-        print("test")
+        print("initialisation, lecture des valeurs du fichier")
+        fichier0=open("C:/Users/pasca/Desktop/testpourprojet/test.txt","r")
+       # print("testboucle")
+        ligne=fichier0.readline()
+        for i in range(3):                        #tq on est pas en fin de fichier , a la limite compter le nb de lignes
+           # print("debuttour")
+            p0=ligne.find(' : ')        #p0 est l indice du premier ' : ' , qui est un séparateur d'information
+            p1=p0+3+ligne[p0+3:].find(' : ') #p1 est le deuxieme
+            cleligne=ligne[:p0]         #nickel
+            valeurligne=ligne[p0+3:p1]
+            typeligne=ligne[p1+3:p1+6]
+            #print(p0)
+            #print(p1)
+            #print(cleligne)
+            #print(valeurligne)
+            #print(typeligne)
+            if (typeligne=="int"):
+                self.dico[cleligne]=int(valeurligne)
+            else:                               #autre type de donnees a prevoir
+                self.dico[cleligne]=valeurligne #a voir 
+            ligne=fichier0.readline()
+           # print("fintour")
+       # print("fintestboucle")
+        
 
 
     def close(self):                #on écrit les valeurs dans un fichier
-        fichier=open("param.conf", "w")
+        fichier=open("C:/Users/pasca/Desktop/testpourprojet/test.txt", "w")
         for key,value in self.dico.items():
             valtype=type(value)
             value_type=str(valtype)
@@ -58,9 +84,12 @@ if __name__ == "__main__":
     class5=config()
     print (class5.dico)
     #class5.getValue('chunk',1024)
-    class5.setValue('chunk',1023)
+    #class5.setValue('chunk',1023)
     #print(class5.dico)
     #class5.getValue('boby',12)
     #class5.getValue('chunk',1024)
+    print("le dico s affiche")
     class5.affichageDico()
     class5.close()
+
+#voir comment est representé la fin d un fichier , la fin d une ligne dans un fichier , voir tous les types d objets possibles
