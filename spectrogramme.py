@@ -14,16 +14,18 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
     def __init__(self, chunk, rate):
         super(SpectrogramWidget, self).__init__()
 
+        # définition des variables
         self.chunk = chunk
         self.rate = rate
 
         self.img = pyqtgraph.ImageItem()
         self.addItem(self.img)
 
-        #on calcul de nombre de point a retirer pour supprimmer les frequence inférieur a 250 hertz
+        # on calcul de nombre de point a retirer pour supprimmer les frequence inférieur a 250 hertz
         freqMin = 250
         self.nbPointRetirer = (freqMin*2*(chunk/2+1))/rate
 
+        # définition du tableau de valeurs pour l'image
         self.img_array = numpy.zeros((300, chunk/2+1))
 
         # bipolar colormap
@@ -41,8 +43,10 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
 
         self.setLabel('left', 'Frequency', units='Hz')
 
+        # on définit la fenêtre pour la FFT
         self.win = numpy.hanning(chunk)
 
+        # on définit le signal pyqt
         self.read_collected.connect(self.update)
 
     def update(self, data):
@@ -55,16 +59,16 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
         # convert to dB scale
         psd = 20 * numpy.log10(psd)
 
-        #supression des basses fréquences
+        # supression des basses fréquences
         for i in range(0,self.nbPointRetirer):
             psd[i] = 0
-            #psd = numpy.delete(psd, (0), axis=0)
 
-        #définition du seuil de détection
+        # définition du seuil de détection
         psd = numpy.where(psd<20, 0, -20)
 
         # roll down one and replace leading edge with new data
         self.img_array = numpy.roll(self.img_array, -1, 0)
         self.img_array[-1:] = psd
 
+        # on définit l'image
         self.img.setImage(self.img_array, autoLevels=False)

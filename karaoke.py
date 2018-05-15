@@ -106,7 +106,7 @@ if __name__ == "__main__":
     #on initialise la config
     config = configuration.config()
     config.setValue("rate", 8000)# --------------------NE PAS GARDER !!!!----------------------------
-    config.setValue("chunk", 256)# --------------------NE PAS GARDER !!!!----------------------------
+    config.setValue("chunk", 128)# --------------------NE PAS GARDER !!!!----------------------------
     config.setValue("path_saved", "/home/andy/Bureau")# --------------------NE PAS GARDER !!!!----------------------------
     #Initialisation de l'app PyQt
     app=QApplication([])
