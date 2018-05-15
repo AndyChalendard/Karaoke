@@ -20,7 +20,11 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
         self.img = pyqtgraph.ImageItem()
         self.addItem(self.img)
 
-        self.img_array = numpy.zeros((1000, chunk/2+1))
+        #on calcul de nombre de point a retirer pour supprimmer les frequence inférieur a 250 hertz
+        freqMin = 250
+        self.nbPointRetirer = (freqMin*2*(chunk/2+1))/rate
+
+        self.img_array = numpy.zeros((300, chunk/2+1))
 
         # bipolar colormap
         pos = numpy.array([0., 1., 0.5, 0.25, 0.75])
@@ -50,6 +54,11 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
 
         # convert to dB scale
         psd = 20 * numpy.log10(psd)
+
+        #supression des basses fréquences
+        for i in range(0,self.nbPointRetirer):
+            psd[i] = 0
+            #psd = numpy.delete(psd, (0), axis=0)
 
         #définition du seuil de détection
         psd = numpy.where(psd<20, 0, -20)
