@@ -27,7 +27,8 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
         self.nbPointRetirer = (freqMin*2*(chunk/2+1))/rate
 
         # définition du tableau de valeurs pour l'image
-        self.img_array = numpy.zeros((300, chunk/2+1))
+        self.xSize = 300
+        self.img_array = numpy.zeros((self.xSize, chunk/2+1))
 
         # bipolar colormap
         pos = numpy.array([0., 1., 0.5, 0.25, 0.75])
@@ -53,6 +54,10 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
         #on définit les blocks
         self.blocks = spectrogrammeBlock.SpectrogramBlock("block.data", chunk, rate);
 
+        #on insère crée nos blocks
+        for i in range(self.xSize/2, self.xSize):
+            self.img_array[i:] = self.blocks.getFrame()*-20
+
     def update(self, data):
         # normalized, windowed frequencies in data chunk
         spec = numpy.fft.rfft(data*self.win) / self.chunk
@@ -68,11 +73,16 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
             psd[i] = 0
 
         # définition du seuil de détection
-        psd = numpy.where(psd<20, 0, -20)
+        psd = numpy.where(psd<20, 0, 40)
 
-        # roll down one and replace leading edge with new data
+        # défilement des valeurs
         self.img_array = numpy.roll(self.img_array, -1, 0)
-        self.img_array[-1:] = psd
+
+        # insertion des valeurs du micro
+        self.img_array[self.xSize/2:self.xSize/2+1] += psd
+
+        # on insère le nouveau block
+        self.img_array[-1:] = self.blocks.getFrame()*-20
 
         # on définit l'image
         self.img.setImage(self.img_array, autoLevels=False)
