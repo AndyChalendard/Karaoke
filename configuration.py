@@ -4,7 +4,7 @@
     #dico={'chunk' : 1024 , 'rate' : 8000 , 'channels' : 1}
     #print (dico['chunk'])             # affichage d un element
 
-
+#stocker les elements avec un ß en fin de ligne
 
 class config():
 
@@ -16,7 +16,7 @@ class config():
         for key,value in self.dico.items():
             valtype=type(value)
             value_type=str(valtype)         #on récupère le type des valeurs sous forme de chaine de caractères
-            value_type=value_type.replace('<class \'','')
+            value_type=value_type.replace('<class \'','')#pour un soucis de clarté
             value_type=value_type.replace('\'>','')
             print ("{0} : {1} :".format(key,value),value_type)      #on affiche les éléments avec leurs type
             print("\n")
@@ -29,21 +29,16 @@ class config():
             ligne=fichier0.readline()
             while(ligne!=""):                        #tq on est pas en fin de fichier 
                 print("debuttour")
-                p0=ligne.find('ß')        #p0 est l indice du premier 'ß' , qui est un séparateur d'information
-                p1=p0+1+ligne[p0+1:].find('ß') #p1 est le deuxieme
-                p2=p1+1+ligne[p1+1:].find('\n')
-                cleligne=ligne[:p0]        
-                valeurligne=ligne[p0+1:p1]
-                typeligne=ligne[p1+1:p2]
-                #print(p0)
-                #print(p1)
-                #print(p2)
+                elt=ligne.split("ß")
+                cleligne=elt[0]
+                valeurligne=elt[1]
+                typeligne=elt[2]
                 #print(cleligne)
                 #print(valeurligne)
                 #print(typeligne)
-                if (typeligne=="int"):
+                if (typeligne=="<class 'int'>"):
                     self.dico[cleligne]=int(valeurligne)
-                elif (typeligne=="float"):                             
+                elif (typeligne=="<class 'float'>"):                             
                     self.dico[cleligne]=float(valeurligne)
                 else:
                     self.dico[cleligne]=valeurligne
@@ -59,13 +54,12 @@ class config():
             for key,value in self.dico.items():
                 valtype=type(value)
                 value_type=str(valtype)
-                value_type=value_type.replace('<class \'','')
-                value_type=value_type.replace('\'>','')
                 fichier.write("{0}ß{1}ß".format(key,value))      # on écrit clé:valeur:type pour chaque couple
                 fichier.write(value_type)
+                fichier.write("ß")
                 fichier.write("\n")
-            fichier.close()
             print("Paramètres enregistrés !")
+        fichier.close()
 
 
     def setValue(self, name, value):    #attribution d'une valeur à une clé
@@ -85,13 +79,14 @@ if __name__ == "__main__":
     print("Test config")
 
     class5=config()
+    print("afficher le dico sans la fonction")
     print (class5.dico)
     #class5.getValue('chunk',1024)
     #class5.setValue('chunk',1023)
     #print(class5.dico)
     #class5.getValue('boby',12)
     #class5.getValue('chunk',1024)
-    print("le dico s affiche")
+    print("le dico s affiche avec la fonction")
     class5.affichageDico()
     class5.close()
 
