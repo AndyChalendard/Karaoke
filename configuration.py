@@ -16,48 +16,41 @@ class config():
         for key,value in self.dico.items():
             valtype=type(value)
             value_type=str(valtype)         #on récupère le type des valeurs sous forme de chaine de caractères
-            value_type=value_type.replace('<class \'','')#pour un soucis de clarté
-            value_type=value_type.replace('\'>','')
             print ("{0} : {1} :".format(key,value),value_type)      #on affiche les éléments avec leurs type
             print("\n")
-            
+
 
     def __init__(self):
         print("initialisation, lecture des valeurs du fichier")
         fichier0=open("param.conf","r")
         if(fichier0!=None):
             ligne=fichier0.readline()
-            while(ligne!=""):                        #tq on est pas en fin de fichier 
-                print("debuttour")
+            while(ligne!=""):                        #tq on est pas en fin de fichier
                 elt=ligne.split("ß")
                 cleligne=elt[0]
                 valeurligne=elt[1]
                 typeligne=elt[2]
-                #print(cleligne)
-                #print(valeurligne)
-                #print(typeligne)
-                if (typeligne=="<class 'int'>"):
+
+                if ("int" in typeligne):
                     self.dico[cleligne]=int(valeurligne)
-                elif (typeligne=="<class 'float'>"):                             
+                elif ("float" in typeligne):
                     self.dico[cleligne]=float(valeurligne)
                 else:
                     self.dico[cleligne]=valeurligne
                 ligne=fichier0.readline()
-            print("fintestboucle")
             fichier0.close()
-        
 
 
     def close(self):                #on écrit les valeurs dans un fichier
         fichier=open("param.conf", "w")
         if(fichier!=None):
             for key,value in self.dico.items():
-                valtype=type(value)
-                value_type=str(valtype)
-                fichier.write("{0}ß{1}ß".format(key,value))      # on écrit clé:valeur:type pour chaque couple
-                fichier.write(value_type)
-                fichier.write("ß")
-                fichier.write("\n")
+                if (key != ""):
+                    value_type=str(type(value))
+                    fichier.write("{0}ß{1}ß".format(key,value))      # on écrit clé:valeur:type pour chaque couple
+                    fichier.write(value_type)
+                    fichier.write("ß")
+                    fichier.write("\n")
             print("Paramètres enregistrés !")
         fichier.close()
 
@@ -89,4 +82,3 @@ if __name__ == "__main__":
     print("le dico s affiche avec la fonction")
     class5.affichageDico()
     class5.close()
-

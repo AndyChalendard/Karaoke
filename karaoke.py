@@ -105,15 +105,13 @@ class ParamWindows(QDialog, param.Ui_Dialog):
 if __name__ == "__main__":
     #on initialise la config
     config = configuration.config()
-    config.setValue("rate", 8000)# --------------------NE PAS GARDER !!!!----------------------------
-    config.setValue("chunk", 128)# --------------------NE PAS GARDER !!!!----------------------------
-    config.setValue("path_saved", "/home/andy/Bureau")# --------------------NE PAS GARDER !!!!----------------------------
+    
     #Initialisation de l'app PyQt
     app=QApplication([])
 
     #on définit le widget FFT
-    widgetFFT = spectrogramme.SpectrogramWidget(config.getValue("chunk", 1024), config.getValue("rate", 8000))
-    #widgetFFT = fftGraph.widgetFFT(config.getValue("chunk", 1024), config.getValue("rate", 8000))
+    widgetFFT = spectrogramme.SpectrogramWidget(config.getValue("chunk", 128), config.getValue("rate", 8000))
+    #widgetFFT = fftGraph.widgetFFT(config.getValue("chunk", 128), config.getValue("rate", 8000))
 
     # on définit notre fenetre
     form=MainWindows(widgetFFT)
@@ -126,7 +124,7 @@ if __name__ == "__main__":
     lectureAudio = Audio.LectureAudio(form.setProgressBar)
 
     # on initialise l'Enregistrement audio
-    enregistrementAudio = Audio.EnregistrementAudio(config.getValue("chunk", 1024), config.getValue("rate", 8000), config.getValue("channel", 1), widgetFFT.read_collected)
+    enregistrementAudio = Audio.EnregistrementAudio(config.getValue("chunk", 128), config.getValue("rate", 8000), config.getValue("channel", 1), widgetFFT.read_collected)
 
     # on définit le fichier audio
     audioFile = None;
