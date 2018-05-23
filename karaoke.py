@@ -82,9 +82,14 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
 
 class ParamWindows(QDialog, param.Ui_Dialog):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, config=None):
         super(ParamWindows, self).__init__(parent)
         self.setupUi(self)
+
+        if (config!=None):
+            self.Box_Chunk.setValue(config.getValue("chunk", 128))
+            self.Box_Rate.setValue(config.getValue("rate", 8000))
+            self.Box_Channel.setValue(config.getValue("channel", 1))
 
     def SetChunk(self, value):
         config.setValue("chunk", value)
@@ -105,7 +110,7 @@ class ParamWindows(QDialog, param.Ui_Dialog):
 if __name__ == "__main__":
     #on initialise la config
     config = configuration.config()
-    
+
     #Initialisation de l'app PyQt
     app=QApplication([])
 
@@ -118,7 +123,7 @@ if __name__ == "__main__":
     form.show()
 
     #on définit la fenetre de paramètre
-    formParam=ParamWindows(form)
+    formParam=ParamWindows(form, config)
 
     # on initialise la lecture audio
     lectureAudio = Audio.LectureAudio(form.setProgressBar)

@@ -43,18 +43,18 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox">
+          <widget class="QSpinBox" name="Box_Chunk">
            <property name="minimum">
-            <number>1024</number>
+            <number>64</number>
            </property>
            <property name="maximum">
-            <number>4096</number>
+            <number>2048</number>
            </property>
            <property name="singleStep">
-            <number>1024</number>
+            <number>64</number>
            </property>
            <property name="value">
-            <number>1024</number>
+            <number>128</number>
            </property>
           </widget>
          </item>
@@ -72,7 +72,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox_2">
+        <widget class="QSpinBox" name="Box_Rate">
          <property name="minimum">
           <number>8000</number>
          </property>
@@ -96,7 +96,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox_3">
+        <widget class="QSpinBox" name="Box_Channel">
          <property name="minimum">
           <number>1</number>
          </property>
@@ -127,8 +127,8 @@
    <slot>CheminDEnregistrementClick()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>28</x>
-     <y>143</y>
+     <x>38</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>32</x>
@@ -137,14 +137,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>spinBox_3</sender>
+   <sender>Box_Channel</sender>
    <signal>valueChanged(int)</signal>
    <receiver>Dialog</receiver>
    <slot>SetChannel(int)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>434</x>
-     <y>109</y>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
      <x>285</x>
@@ -153,14 +153,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>spinBox_2</sender>
+   <sender>Box_Rate</sender>
    <signal>valueChanged(int)</signal>
    <receiver>Dialog</receiver>
    <slot>SetRate(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>55</y>
+     <x>434</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -169,7 +169,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>spinBox</sender>
+   <sender>Box_Chunk</sender>
    <signal>valueChanged(int)</signal>
    <receiver>Dialog</receiver>
    <slot>SetChunk(int)</slot>
