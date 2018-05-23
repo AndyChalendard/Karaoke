@@ -1,10 +1,9 @@
 # Karaoke
 
-pyqtgraph
-
-
--custom graphics
-
+installation sur ubuntu:
+	-sudo apt-get install python-qt4 python-pyaudio python-pip
+	-pip install numpy
+	-pip install pyqtgraph
 
 fonction de comparaison
 texte défilant
