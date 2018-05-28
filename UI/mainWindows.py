@@ -43,19 +43,12 @@ class Ui_Dialog(object):
         self.dockWidgetContents.setObjectName(_fromUtf8("dockWidgetContents"))
         self.dockWidget.setWidget(self.dockWidgetContents)
         self.verticalLayout.addWidget(self.dockWidget)
-        self.textBrowser_2 = QtGui.QTextBrowser(Dialog)
-        self.textBrowser_2.setMaximumSize(QtCore.QSize(16777215, 30))
-        self.textBrowser_2.setObjectName(_fromUtf8("textBrowser_2"))
-        self.verticalLayout.addWidget(self.textBrowser_2)
         self.progressBar = QtGui.QProgressBar(Dialog)
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName(_fromUtf8("progressBar"))
         self.verticalLayout.addWidget(self.progressBar)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.Button_File = QtGui.QPushButton(Dialog)
-        self.Button_File.setObjectName(_fromUtf8("Button_File"))
-        self.horizontalLayout.addWidget(self.Button_File)
         self.Button_Listen = QtGui.QPushButton(Dialog)
         self.Button_Listen.setObjectName(_fromUtf8("Button_Listen"))
         self.horizontalLayout.addWidget(self.Button_Listen)
@@ -70,12 +63,10 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.Button_Listen, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.ecouterClick)
-        QtCore.QObject.connect(self.Button_File, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.fileSearchClick)
         QtCore.QObject.connect(self.Button_Play, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.jouerClick)
         QtCore.QObject.connect(self.Button_Parametre, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.parametreClick)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-        Dialog.setTabOrder(self.textBrowser, self.Button_File)
-        Dialog.setTabOrder(self.Button_File, self.Button_Listen)
+        Dialog.setTabOrder(self.textBrowser, self.Button_Listen)
         Dialog.setTabOrder(self.Button_Listen, self.Button_Play)
 
     def retranslateUi(self, Dialog):
@@ -85,7 +76,6 @@ class Ui_Dialog(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Bienvenue</p></body></html>", None))
-        self.Button_File.setText(_translate("Dialog", "File...", None))
         self.Button_Listen.setText(_translate("Dialog", "Ecouter", None))
         self.Button_Play.setText(_translate("Dialog", "Jouer", None))
         self.Button_Parametre.setText(_translate("Dialog", "Paramètre", None))

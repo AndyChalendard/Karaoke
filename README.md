@@ -6,5 +6,5 @@ installation sur ubuntu:
 	-pip install pyqtgraph
 
 
-texte défilant
-a voir pour le chunk si garder passer en temporelle sur les rectangles
+start:
+	python2 karaoke.py

@@ -1,68 +1,81 @@
 # -*- coding: utf-8 -*-
 
-    #si on veut mettre des valeurs par défaut:
-    #dico={'chunk' : 1024 , 'rate' : 8000 , 'channels' : 1}
-    #print (dico['chunk'])             # affichage d un element
-
-#stocker les elements avec un ß en fin de ligne
-
 class config():
-
 
     dico={}     #création d'un dictionnaire vide
 
-
-    def affichageDico(self):
-        for key,value in self.dico.items():
-            valtype=type(value)
-            value_type=str(valtype)         #on récupère le type des valeurs sous forme de chaine de caractères
-            print ("{0} : {1} :".format(key,value),value_type)      #on affiche les éléments avec leurs type
-            print("\n")
-
-
     def __init__(self):
-        print("initialisation, lecture des valeurs du fichier")
+
+        print("Chargement des paramètres")
+
         fichier0=open("param.conf","r")
         if(fichier0!=None):
             ligne=fichier0.readline()
-            while(ligne!=""):                        #tq on est pas en fin de fichier
+
+            # Tant que l'on est pas en fin de fichier
+            while(ligne!=""):
+                # On sépare la ligne en éléments distinct
                 elt=ligne.split("ß")
                 cleligne=elt[0]
                 valeurligne=elt[1]
                 typeligne=elt[2]
 
+                # On convertit l'élément dans son type
                 if ("int" in typeligne):
                     self.dico[cleligne]=int(valeurligne)
                 elif ("float" in typeligne):
                     self.dico[cleligne]=float(valeurligne)
                 else:
                     self.dico[cleligne]=valeurligne
+
+                # On lit la ligne suivante
                 ligne=fichier0.readline()
+
             fichier0.close()
 
+    # Fonction d'affichage du dictionnaire des paramètres
+    def affichageDico(self):
 
-    def close(self):                #on écrit les valeurs dans un fichier
+        # On parcours tous les éléments
+        for key,value in self.dico.items():
+            valueType=str(type(value))
+
+            #on affiche l'élément avec son type
+            print ("{0} : {1} :".format(key,value),valueType)
+            print("\n")
+
+    # Fonction de libération de la classe
+    def close(self):
         fichier=open("param.conf", "w")
         if(fichier!=None):
+
+            # On parcours tous les éléments
             for key,value in self.dico.items():
                 if (key != ""):
-                    value_type=str(type(value))
-                    fichier.write("{0}ß{1}ß".format(key,value))      # on écrit clé:valeur:type pour chaque couple
-                    fichier.write(value_type)
+
+                    # On enregistre le paramètre de la forme: 'keyßvalueßtype'
+                    valueType=str(type(value))
+                    fichier.write("{0}ß{1}ß".format(key,value))
+                    fichier.write(valueType)
                     fichier.write("ß")
                     fichier.write("\n")
+
             print("Paramètres enregistrés !")
+
         fichier.close()
 
-
-    def setValue(self, name, value):    #attribution d'une valeur à une clé
+    # Fonction de définition d'une clef
+    def setValue(self, name, value):
         self.dico[name]=value
 
-
-    def getValue(self, name, default=None): #récupération d'une valeur de clé dans le dico, sinon renvoit une valeur par défaut
+    # Fonction de récupération d'une valeur de clef, si la clef n'existe pas on retourne la valeur par défaut
+    def getValue(self, name, default=None):
         valeur=self.dico.get(name)
+
+        # Si la valeur est inexistante, alors on charge la valeur par défaut
         if (valeur==None):
             valeur=default
+
         return valeur
 
 

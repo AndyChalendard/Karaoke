@@ -2,6 +2,7 @@
 
 import numpy
 
+#classe de gestions des blocks sur le spectrogramme
 class SpectrogramBlock():
 
     blockCour = None
@@ -27,23 +28,33 @@ class SpectrogramBlock():
 
             # tant que nous avons pas lue tout le fichier
             while (line != ""):
-                data = line.split(";") # on sépare les deux points
-                if (len(data)>=2): # si on a bien deux points
+
+                # on sépare les deux points
+                data = line.split(";")
+
+                # si on a bien deux points
+                if (len(data)>=2):
                     a=data[0].split(":")
                     b=data[1].split(":")
 
-                    if (len(a)==2 and len(b)==2): # si les deux points correpondent bien à deux coordonnées
+                    # si les deux points correpondent bien à deux coordonnées
+                    if (len(a)==2 and len(b)==2):
+                        # On crée un block a ces coordonnées
                         self.blocks.append(Block(chunk, rate, int(a[0]), int(a[1]), int(b[0]), int(b[1])))
                     else:
                         print("Erreur de données dans le fichier audio.data")
                 else:
                     print("Erreur de données dans le fichier audio.data")
+
+                # on lit la ligne suivante
                 line = f.readline()
+
             f.close()
 
         self.YnbrPt = chunk/2+1
         self.chunkAct = 0
 
+    # fonction qui retourne le tableau 1 dimention corespondant aux rectangles actuel (0 pour pas de rectangles, 1 sinon)
     def getFrame(self):
         # on définit le tableau qui code nos rectangles
         rect = numpy.zeros(self.YnbrPt, dtype=int)
@@ -61,21 +72,24 @@ class SpectrogramBlock():
             if (len(self.blocks)!=0):
                 self.blockCour = self.blocks.pop(0)
 
-        # si notre block courant existe (il sera dans le bon chunk) et que le block a bien débuté
+        # si notre block courant existe (il sera dans le bon chunk avec les lignes précédente) et que le block a bien débuté
         if (self.blockCour != None and self.blockCour.posDeb[0]<=self.chunkAct):
 
+            #on définit les 1
             for i in range(self.blockCour.posDeb[1], self.blockCour.posFin[1]):
                 rect[i] += 1
 
-        # on incremente le num de chunk actuel
+        # on incremente le numéro de chunk actuel
         self.chunkAct += 1
 
         return rect
 
+# classe correspondant a un block
 class Block():
 
-    posDeb = [0,0]
-    posFin = [0,0]
+    # les coordonnées du block
+    posDeb = [0,0] # coordonnée basse à gauche
+    posFin = [0,0] # coordonnée haute à droite
 
     def __init__(self, chunk, rate, x1, y1, x2, y2):
         #si les frequences entrée sont correct

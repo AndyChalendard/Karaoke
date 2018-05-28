@@ -51,16 +51,6 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="textBrowser_2">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>30</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QProgressBar" name="progressBar">
        <property name="value">
         <number>24</number>
@@ -69,13 +59,6 @@ p, li { white-space: pre-wrap; }
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="Button_File">
-         <property name="text">
-          <string>File...</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QPushButton" name="Button_Listen">
          <property name="text">
@@ -105,7 +88,6 @@ p, li { white-space: pre-wrap; }
  </widget>
  <tabstops>
   <tabstop>textBrowser</tabstop>
-  <tabstop>Button_File</tabstop>
   <tabstop>Button_Listen</tabstop>
   <tabstop>Button_Play</tabstop>
  </tabstops>
@@ -124,22 +106,6 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>157</x>
      <y>360</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Button_File</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>fileSearchClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>19</x>
-     <y>340</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>25</x>
-     <y>356</y>
     </hint>
    </hints>
   </connection>
