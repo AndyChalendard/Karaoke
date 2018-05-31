@@ -12,9 +12,9 @@ class config():
         if(fichier0!=None):
             ligne=fichier0.readline()
 
-            # Tant que l'on est pas en fin de fichier
+            # Tant qu'on est pas en fin de fichier
             while(ligne!=""):
-                # On sépare la ligne en éléments distinct
+                # On sépare la ligne en éléments distincts
                 elt=ligne.split("ß")
                 cleligne=elt[0]
                 valeurligne=elt[1]
@@ -36,7 +36,7 @@ class config():
     # Fonction d'affichage du dictionnaire des paramètres
     def affichageDico(self):
 
-        # On parcours tous les éléments
+        # On parcourt tous les éléments
         for key,value in self.dico.items():
             valueType=str(type(value))
 
@@ -49,7 +49,7 @@ class config():
         fichier=open("param.conf", "w")
         if(fichier!=None):
 
-            # On parcours tous les éléments
+            # On parcourt tous les éléments
             for key,value in self.dico.items():
                 if (key != ""):
 

@@ -22,7 +22,7 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
         self.img = pyqtgraph.ImageItem()
         self.addItem(self.img)
 
-        # on calcul de nombre de point à retirer pour supprimer les frequence inférieur a 250 hertz
+        # on calcule le nombre de points à retirer pour supprimer les fréquences inférieures à 250 hertz
         freqMin = 250
         self.nbPointRetirer = (freqMin*2*(chunk/2+1))/rate
 
@@ -51,16 +51,16 @@ class SpectrogramWidget(pyqtgraph.PlotWidget):
         # on définit le signal pyqt
         self.read_collected.connect(self.update)
 
-        #on définit les blocks
+        #on définit les blocs
         self.blocks = spectrogrammeBlock.SpectrogramBlock("block.data", chunk, rate);
 
-        #on insère crée nos blocks
+        #on insère crée nos blocs
         for i in range(self.xSize/2, self.xSize):
             self.img_array[i:] = self.blocks.getFrame()*-20
 
-    # Données entrante
+    # Données entrantes
     def update(self, data):
-        # on passe nos données dans la fenêtre, calcul la FFT, et normalise
+        # on passe nos données dans la fenêtre, calcule la FFT, et normalise
         spec = numpy.fft.rfft(data*self.win) / self.chunk
 
         psd = abs(spec)

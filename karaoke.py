@@ -57,16 +57,16 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         file_dialog.setNameFilters(["Fichier audio (*.wav)"])
         file_dialog.selectNameFilter("Fichier audio (*.wav)")
 
-        #ouverture de la boite de dialogue
+        #ouverture de la boîte de dialogue
         if (file_dialog.exec_()):
-            #Définition de la variable global contenant le fichier à lire
+            #Définition de la variable globale contenant le fichier à lire
             global audioFile
             audioFile = str(file_dialog.selectedFiles().first())
             self.textBrowserSetText()
 
-    # Fonction du bouton Ecouter (sert à ecouter une piste audio)
+    # Fonction du bouton Ecouter (sert à écouter une piste audio)
     def ecouterClick(self):
-        # On ouvre la boite de dialogue demandant le fichier
+        # On ouvre la boîte de dialogue demandant le fichier
         self.fileAudioSearch()
 
         # On écoute ensuite le fichier si il a été selectionné
@@ -83,7 +83,7 @@ class MainWindows(QDialog, mainWindows.Ui_Dialog):
         # Si aucun enregistrement est en cours
         if (enregistrementAudio.recording() == False):
 
-            # On enregistre l'audio si la valeur du chemin d'enregistrement est définit
+            # On enregistre l'audio si la valeur du chemin d'enregistrement est défini
             if (config.getValue("path_saved") != None):
                 # on lance l'enregistrement
                 enregistrementAudio.enregistrementFichier(config.getValue("path_saved")+"/Karaoke_Save.wav")
@@ -123,7 +123,7 @@ class ParamWindows(QDialog, param.Ui_Dialog):
     def SetChannel(self, value):
         config.setValue("channel", value)
 
-    # # Fonction de définition du chemin d'enregistrement dans la classe d'enregistrement des paramètres
+    # Fonction de définition du chemin d'enregistrement dans la classe d'enregistrement des paramètres
     def CheminDEnregistrementClick(self):
         value = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
 
@@ -143,11 +143,11 @@ if __name__ == "__main__":
     #on définit le widget FFT
     widgetSpectrogramme = spectrogramme.SpectrogramWidget(config.getValue("chunk", 128), config.getValue("rate", 8000))
 
-    # on définit notre fenetre
+    # on définit notre fenêtre
     form=MainWindows(widgetSpectrogramme)
     form.show()
 
-    #on définit la fenetre de paramètre
+    #on définit la fenêtre de paramètre
     formParam=ParamWindows(form, config)
 
     # on initialise la lecture audio
